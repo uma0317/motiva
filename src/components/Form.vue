@@ -5,14 +5,16 @@
       <label>Event</label>
       <md-input v-model="name"></md-input>
     </md-field>
-    <vue-slider class="slider" v-model="value"></vue-slider>
+    <vue-slider class="slider" v-model="value" min="-100"></vue-slider>
 
     <div class="md-layout md-gutter">
 			<div class="md-layout-item">
-                <md-button class="md-raised md-primary" v-on:click="pushEvent()">Push</md-button>
+                <md-button class="md-raised md-primary" v-on:click="pushEvent()" v-if="validate">Push</md-button>
+                <md-button class="md-raised md-primary" disabled v-else>Push</md-button>
 			</div>
 			<div class="md-layout-item">
-                <md-button class="md-raised md-primary" v-on:click="spliceEvent()">Splice</md-button>
+                <md-button class="md-raised md-primary" v-on:click="spliceEvent()" v-if="validate">Splice</md-button>
+                <md-button class="md-raised md-primary" disabled v-else>Splice</md-button>
 			</div>
 		</div>
   </div>
@@ -29,6 +31,13 @@
             value: 0,
         }),
         
+        computed: {
+            validate() {
+                if(this.name === null) return false
+                return true
+            }
+        },
+
         components: {
             vueSlider
         },

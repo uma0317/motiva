@@ -5,11 +5,12 @@
       <label>Event</label>
       <md-input v-model="name"></md-input>
     </md-field>
-    <vue-slider class="slider" v-model="sliderValue"></vue-slider>
+    <vue-slider class="slider" v-model="sliderValue" min="-100"></vue-slider>
     
     <div class="md-layout">
 			<div class="md-layout-item">
-                <md-button class="md-raised md-accent" v-on:click="deleteEvent()">Delete</md-button>
+                <md-button class="md-raised md-accent" v-on:click="deleteEvent()" v-if="validate">Delete</md-button>
+                <md-button class="md-raised md-accent" disabled v-else>Delete</md-button>
 			</div>
 		</div>
   </div>
@@ -25,7 +26,7 @@
         data: () => ({
             width: "auto",
             name: null,
-            sliderValue: 0
+            sliderValue: 0,
         }),
 
         components: {
@@ -39,6 +40,10 @@
             }),
             isCurrentForm() {
                 return store.getters.getCurrentForm === "UpdateForm"
+            },
+            validate() {
+                if(this.name === null) return false
+                return true
             }
         },
 
@@ -59,12 +64,19 @@
             },
         },
 
+        mounted() {
+            this.name = this.events[this.currentIndex].name
+            this.sliderValue = this.events[this.currentIndex].value
+        },
+
         methods: {
             updateEvent() {
                 store.commit('updateEvent', {name: this.name, value: this.sliderValue})
             },
             deleteEvent() {
                 store.commit('deleteEvent')
+                this.name = null
+                this.sliderValue = 0
             },
             changeForm() {
                 store.commit('incrementcurrentFormIndex')
