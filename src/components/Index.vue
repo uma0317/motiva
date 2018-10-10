@@ -1,11 +1,11 @@
 <template>
 	<div id="chart-contaienr">
 		<line-chart></line-chart>
-		<div class="md-layout md-gutter">
-			<div class="md-layout-item md-xsmall-size-100">
+		<div class="form-container">
+			<div class="md-layout-item md-xsmall-size-100" v-if="isCurrentForm('Form')">
 				<Form></Form>
 			</div>
-			<div class="md-layout-item md-xsmall-size-100">
+			<div class="md-layout-item md-xsmall-size-100" v-if="isCurrentForm('UpdateForm')">
 				<UpdateForm></UpdateForm>
 			</div>
 		</div>
@@ -15,6 +15,7 @@
 <script>
 import LineChart from '@/components/LineChart'
 import Form from '@/components/Form'
+import store from '@/store/index'
 import UpdateForm from '@/components/UpdateForm'
 export default {
 	name: 'Index',
@@ -22,6 +23,15 @@ export default {
 		LineChart,
 		Form,
 		UpdateForm
+	},
+	computed: {
+
+	},
+
+	methods: {
+				isCurrentForm(formName) {
+			return formName === store.getters.getCurrentForm
+		}
 	},
 	data () {
 		return {
@@ -53,5 +63,10 @@ a {
 
 #chart-contaienr {
 	padding: 10px;
+}
+
+.form-container {
+	max-width: 640px;
+	margin: 0 auto;
 }
 </style>

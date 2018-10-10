@@ -1,14 +1,12 @@
 <template>
   <div>
-    <div class="md-title">Create</div>
+    <div class="md-title">Create <span v-on:click="changeForm"><md-icon>refresh</md-icon></span></div>
     <md-field>
       <label>Event</label>
       <md-input v-model="name"></md-input>
     </md-field>
-    <md-field>
-      <label>Value</label>
-      <md-input v-model="value"></md-input>
-    </md-field>
+    <vue-slider class="slider" v-model="value"></vue-slider>
+
     <div class="md-layout md-gutter">
 			<div class="md-layout-item">
                 <md-button class="md-raised md-primary" v-on:click="pushEvent()">Push</md-button>
@@ -23,20 +21,39 @@
 <script>
     import { mapState } from 'vuex'
     import store from '@/store/index'
+    import vueSlider from 'vue-slider-component';
     export default {
         name: 'Form',
         data: () => ({
             name: null,
-            value: null,
+            value: 0,
         }),
         
+        components: {
+            vueSlider
+        },
+
         methods: {
             pushEvent() {
                 store.commit('pushEvent', {name: this.name, value: this.value})
             },
             spliceEvent() {
                 store.commit('spliceEvent', {name: this.name, value: this.value})
+            },
+            changeForm() {
+                store.commit('incrementcurrentFormIndex')
             }
         }
     }
 </script>
+
+<style>
+    .slider {
+        margin-top: 45px;
+    }
+
+    .md-icon {
+        cursor: pointer;
+    }
+</style>
+

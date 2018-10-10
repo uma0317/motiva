@@ -5,12 +5,17 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: { // = data
+        forms: [
+            "Form",
+            "UpdateForm"
+        ],
         events: [{
             id: 0,
             name: '',
             value: 0
         }],
         currentIndex: 0,
+        currentFormIndex: 0,
     },
 
     getters: { // = computed properties
@@ -22,7 +27,11 @@ export default new Vuex.Store({
 
         getEvents: (state) => {
             return state.events
-        }
+        },
+
+        getCurrentForm(state) {
+            return state.forms[state.currentFormIndex]
+        } 
     },
 
     actions: {
@@ -66,6 +75,14 @@ export default new Vuex.Store({
 
         setCurrentIndex(state, event) {
             state.currentIndex = event
+        },
+
+        setCurrentForm(state, formName) {
+            state.currentForm = formName
+        },
+
+        incrementcurrentFormIndex(state) {
+            state.currentFormIndex = (state.currentFormIndex + 1) % state.forms.length
         }
     }
 })
