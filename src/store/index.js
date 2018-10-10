@@ -9,11 +9,16 @@ export default new Vuex.Store({
             "Form",
             "UpdateForm"
         ],
-        events: [{
-            id: 0,
-            name: '',
-            value: 0
-        }],
+        events: [
+            {
+                name: 'Born',
+                value: 0
+            },
+            {
+                name: "Now",
+                value: 0
+            }
+        ],
         currentIndex: 0,
         currentFormIndex: 0,
     },
@@ -49,7 +54,7 @@ export default new Vuex.Store({
 
         pushEvent(state, event) {
             event.id = state.events.length
-            state.events.push(event)
+            state.events.splice(this.state.events.length - 1, 0, event)
             localStorage.setItem('events', JSON.stringify(state.events));
         },
 

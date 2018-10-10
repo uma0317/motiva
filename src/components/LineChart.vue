@@ -9,51 +9,9 @@
             return {
                 //Chart.js options that controls the appearance of the chart
             
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true,
-                                suggestedMin: -100,
-                                suggestedMax: 100,
-                            },
-                            gridLines: {
-                                display: true
-                            }
-                        }],
-                        xAxes: [ {
-                            display: false,
-                            gridLines: {
-                                display: false
-                            },
-                            scaleLabel: {
-                                display: true,
-                                labelString: '時間軸',
-                                fontFamily: 'monospace',
-                                fontSize: 14
-                            },
-                        }]
-                    },
-                    legend: {
-                        display: false
-                    },
-                    title: {
-                        display: false
-                    },
-                    tooltips: {
-                        mode: 'nearest'
-                    },
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    events: ['click', 'mousemove'],
-                    onClick: function (e, el) {
-                        if (! el || el.length === 0) return;
-                        store.commit("setCurrentIndex", el[0]._index)
-                        console.log(el[0]);
-                    }
-                }
             }
         },
+
         computed: {
             ...mapGetters([
                 'getEvents',
@@ -88,13 +46,63 @@
                         }
                     ]
                 }
+            },
+
+            options() {
+                return {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                suggestedMin: -100,
+                                suggestedMax: 100,
+                            },
+                            gridLines: {
+                                display: true
+                            }
+                        }],
+                        xAxes: [ {
+                            // display: false,
+                            gridLines: {
+                                display: true
+                            },
+                            labels: this.getEmptyLabels(),
+                        }]
+                    },
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: false
+                    },
+                    tooltips: {
+                        mode: 'nearest'
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    events: ['click', 'mousemove'],
+                    onClick: function (e, el) {
+                        if (! el || el.length === 0) return;
+                        store.commit("setCurrentIndex", el[0]._index)
+                        console.log(el[0]);
+                    }
+                }
             }
         },
 
         methods: {
             getClickedEvents(evt) {
                 var activePoints = this.getElementsAtEvent(evt);
-                console.log(activePoints)
+            },
+
+            getEmptyLabels() {
+                var labels = []
+                this.events.forEach(() => {
+                    labels.push('')
+                })
+                labels.pop()
+                labels.push('Now')
+                return labels
             }
         },
 

@@ -3,7 +3,8 @@
     <div class="md-title">Update <span @click="changeForm"><md-icon>refresh</md-icon></span></div>
     <md-field>
       <label>Event</label>
-      <md-input v-model="name"></md-input>
+      <md-input v-model="name" v-if="isFirstOrLast" disabled></md-input>
+      <md-input v-model="name" v-else></md-input>
     </md-field>
     <vue-slider class="slider" v-model="sliderValue" min="-100"></vue-slider>
     
@@ -43,7 +44,13 @@
             },
             validate() {
                 if(this.name === null) return false
+                if(this.isFirstOrLast) return false
                 return true
+            },
+            isFirstOrLast() {
+                if(this.currentIndex === 0) return true
+                if(this.currentIndex === this.events.length - 1) return true
+                return false
             }
         },
 

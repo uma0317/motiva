@@ -1,8 +1,5 @@
 <template>
 	<div id="app">
-		<header>
-		<span>Motivation Graph Generator</span>
-		</header>
 		<main>
 		<router-view></router-view>
 		</main>
@@ -29,7 +26,6 @@ body {
 
 main {
   text-align: center;
-  margin-top: 40px;
 }
 
 header {
