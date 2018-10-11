@@ -13,7 +13,7 @@
                 <md-button class="md-raised md-primary" disabled v-else>Push</md-button>
 			</div>
 			<div class="md-layout-item">
-                <md-button class="md-raised md-primary" v-on:click="spliceEvent()" v-if="validate">Splice</md-button>
+                <md-button class="md-raised md-primary" v-on:click="spliceEvent()" v-if="validate && !isLast">Splice</md-button>
                 <md-button class="md-raised md-primary" disabled v-else>Splice</md-button>
 			</div>
 		</div>
@@ -35,6 +35,11 @@
             validate() {
                 if(this.name === null) return false
                 return true
+            },
+
+            isLast() {
+                if(store.state.currentIndex === store.state.events.length - 1) return true
+                return false
             }
         },
 
