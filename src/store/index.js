@@ -72,6 +72,20 @@ export default new Vuex.Store({
             localStorage.setItem('events', JSON.stringify(state.events));
         },
 
+        deleteAllEvents(state) {
+            state.events = [
+                {
+                    name: 'Born',
+                    value: 0
+                },
+                {
+                    name: "Now",
+                    value: 0
+                }
+            ]
+            localStorage.setItem('events', JSON.stringify(state.events));
+        },
+
         spliceEvent(state, event) {
             event.id = state.events.length
             state.events.splice(state.currentIndex + 1, 0, event)
