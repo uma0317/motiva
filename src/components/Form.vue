@@ -5,7 +5,7 @@
       <label>Event</label>
       <md-input v-model="name"></md-input>
     </md-field>
-    <vue-slider class="slider" v-model="value" min="-100"></vue-slider>
+    <vue-slider class="slider" v-model="value" min=-100　></vue-slider>
 
     <div class="md-layout md-gutter">
 			<div class="md-layout-item">

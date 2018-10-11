@@ -6,7 +6,7 @@
         <md-input v-model="name" v-if="isFirstOrLast" disabled></md-input>
         <md-input v-model="name" v-else></md-input>
         </md-field>
-        <vue-slider class="slider" v-model="sliderValue" min="-100"></vue-slider>
+        <vue-slider class="slider" v-model="sliderValue" min=-100></vue-slider>
         <div class="md-layout md-gutter">
             <div class="md-layout-item">
                 <md-button class="md-raised md-accent" @click="deleteEvent()" v-if="validate">Delete</md-button>
