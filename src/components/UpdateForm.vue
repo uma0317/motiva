@@ -1,20 +1,22 @@
 <template>
-  <div>
-    <div class="md-title">Update <span @click="changeForm"><md-icon>refresh</md-icon></span></div>
-    <md-field>
-      <label>Event</label>
-      <md-input v-model="name" v-if="isFirstOrLast" disabled></md-input>
-      <md-input v-model="name" v-else></md-input>
-    </md-field>
-    <vue-slider class="slider" v-model="sliderValue" min="-100"></vue-slider>
-    
-    <div class="md-layout">
-			<div class="md-layout-item">
-                <md-button class="md-raised md-accent" v-on:click="deleteEvent()" v-if="validate">Delete</md-button>
+    <div>
+        <div class="md-title">Update <span @click="changeForm"><md-icon>refresh</md-icon></span></div>
+        <md-field>
+        <label>Event</label>
+        <md-input v-model="name" v-if="isFirstOrLast" disabled></md-input>
+        <md-input v-model="name" v-else></md-input>
+        </md-field>
+        <vue-slider class="slider" v-model="sliderValue" min=-100></vue-slider>
+        <div class="md-layout md-gutter">
+            <div class="md-layout-item">
+                <md-button class="md-raised md-accent" @click="deleteEvent()" v-if="validate">Delete</md-button>
                 <md-button class="md-raised md-accent" disabled v-else>Delete</md-button>
-			</div>
-		</div>
-  </div>
+            </div>
+            <div class="md-layout-item">
+                <md-button class="md-raised md-accent" @click="deleteAllEvents()">Reset</md-button>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -82,6 +84,11 @@
             },
             deleteEvent() {
                 store.commit('deleteEvent')
+                this.name = null
+                this.sliderValue = 0
+            },
+            deleteAllEvents() {
+                store.commit('deleteAllEvents')
                 this.name = null
                 this.sliderValue = 0
             },

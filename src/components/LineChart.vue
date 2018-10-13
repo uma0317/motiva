@@ -84,7 +84,6 @@
                     onClick: function (e, el) {
                         if (! el || el.length === 0) return;
                         store.commit("setCurrentIndex", el[0]._index)
-                        console.log(el[0]);
                     }
                 }
             }
@@ -108,7 +107,6 @@
 
         watch: {
             events (newCevents, oldCevents) {
-                console.log("change")
                 this.renderChart(this.datacollection, this.options)                
             }
         },
