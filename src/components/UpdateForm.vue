@@ -7,13 +7,26 @@
         <md-input v-model="name" v-else></md-input>
         </md-field>
         <vue-slider class="slider" v-model="sliderValue" min=-100></vue-slider>
+
+        <md-dialog-confirm
+            :md-active.sync="deleteModalActive"
+            md-content="Are you sure you want to delete this event?"
+            md-confirm-text="Agree"
+            md-cancel-text="Disagree"
+            @md-confirm="deleteEvent()" />
+        <md-dialog-confirm
+            :md-active.sync="deleteAllModalActive"
+            md-content="Are you sure you want to delete all events?"
+            md-confirm-text="Agree"
+            md-cancel-text="Disagree"
+            @md-confirm="deleteAllEvents()" />
         <div class="md-layout md-gutter">
             <div class="md-layout-item">
-                <md-button class="md-raised md-accent" @click="deleteEvent()" v-if="validate">Delete</md-button>
+                <md-button class="md-raised md-accent" @click="deleteModalActive = true" v-if="validate">Delete</md-button>
                 <md-button class="md-raised md-accent" disabled v-else>Delete</md-button>
             </div>
             <div class="md-layout-item">
-                <md-button class="md-raised md-accent" @click="deleteAllEvents()">Reset</md-button>
+                <md-button class="md-raised md-accent" @click="deleteAllModalActive = true">Delete All</md-button>
             </div>
         </div>
     </div>
@@ -30,6 +43,8 @@
             width: "auto",
             name: null,
             sliderValue: 0,
+            deleteModalActive: false,
+            deleteAllModalActive: false,
         }),
 
         components: {
