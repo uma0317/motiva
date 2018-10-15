@@ -29,6 +29,15 @@
                 <md-button class="md-raised md-accent" @click="deleteAllModalActive = true">Delete All</md-button>
             </div>
         </div>
+        <div class="md-layout-item">
+            <md-field>
+                <label>JSON</label>
+                <md-textarea v-model="json"></md-textarea>
+            </md-field>
+            <div class="md-layout-item">
+                <md-button class="md-raised md-primary" @click="importJSON">Import</md-button>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -45,6 +54,7 @@
             sliderValue: 0,
             deleteModalActive: false,
             deleteAllModalActive: false,
+            json: null
         }),
 
         components: {
@@ -64,6 +74,9 @@
                 if(this.isFirstOrLast) return false
                 return true
             },
+            jsonValidate() {
+
+            },
             isFirstOrLast() {
                 if(this.currentIndex === 0) return true
                 if(this.currentIndex === this.events.length - 1) return true
@@ -81,7 +94,9 @@
                 if(this.sliderValue == this.events[this.currentIndex].value) return 
                 this.updateEvent()
             },
-
+            events(newValue, oldValue) {
+                this.json = '{"events": ' + JSON.stringify(this.events) + "}"
+            },
             name() {
                 if(this.name == this.events[this.currentIndex].name) return 
                 this.updateEvent()
@@ -91,6 +106,7 @@
         mounted() {
             this.name = this.events[this.currentIndex].name
             this.sliderValue = this.events[this.currentIndex].value
+            this.json = '{"events": ' + JSON.stringify(this.events) + "}"
         },
 
         methods: {
@@ -109,6 +125,9 @@
             },
             changeForm() {
                 store.commit('incrementcurrentFormIndex')
+            },
+            importJSON() {
+                store.commit('importJSON', JSON.parse(this.json).events)
             }
         }
     }

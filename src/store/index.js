@@ -102,6 +102,10 @@ export default new Vuex.Store({
 
         incrementcurrentFormIndex(state) {
             state.currentFormIndex = (state.currentFormIndex + 1) % state.forms.length
+        },
+
+        importJSON(state, json) {
+            state.events = json
         }
     }
 })

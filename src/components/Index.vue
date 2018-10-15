@@ -9,7 +9,7 @@
 				<UpdateForm></UpdateForm>
 			</div>
 		</div>
-	</div>
+  </div>
 </template>
 
 <script>
