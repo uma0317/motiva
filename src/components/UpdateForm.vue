@@ -75,7 +75,7 @@
             showSuccessSnackbar: false,
             showErrorSnackbar: false,
             position: 'center',
-            duration: 4000,
+            duration: 1000,
             isInfinity: false
         }),
 
