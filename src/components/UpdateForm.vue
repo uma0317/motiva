@@ -34,10 +34,27 @@
                 <label>JSON</label>
                 <md-textarea v-model="json"></md-textarea>
             </md-field>
-            <div class="md-layout-item">
-                <md-button class="md-raised md-primary" @click="importJSON">Import</md-button>
+            <div class="md-layout md-gutter">
+                <div class="md-layout-item">
+                    <md-button
+                        class="md-raised md-primary"
+                        @click="showSnackbar = true"
+                        v-clipboard:copy="json"
+                        v-clipboard:success="onCopy"
+                        v-clipboard:error="onError"
+                    >COPY!</md-button>
+                </div>
+                <div class="md-layout-item">
+                    <md-button class="md-raised md-primary" @click="importJSON">IMPORT</md-button>
+                </div>
             </div>
         </div>
+        <md-snackbar :md-position="position" :md-duration="isInfinity ? Infinity : duration" :md-active.sync="showSuccessSnackbar" md-persistent>
+            <span>COPY SUCCESS!</span>
+        </md-snackbar>
+        <md-snackbar :md-position="position" :md-duration="isInfinity ? Infinity : duration" :md-active.sync="showErrorSnackbar" md-persistent>
+            <span>COPY FAILED!</span>
+        </md-snackbar>
     </div>
 </template>
 
@@ -54,7 +71,12 @@
             sliderValue: 0,
             deleteModalActive: false,
             deleteAllModalActive: false,
-            json: null
+            json: null,
+            showSuccessSnackbar: false,
+            showErrorSnackbar: false,
+            position: 'center',
+            duration: 4000,
+            isInfinity: false
         }),
 
         components: {
@@ -75,7 +97,7 @@
                 return true
             },
             jsonValidate() {
-
+                
             },
             isFirstOrLast() {
                 if(this.currentIndex === 0) return true
@@ -128,7 +150,14 @@
             },
             importJSON() {
                 store.commit('importJSON', JSON.parse(this.json).events)
-            }
+            },
+            onCopy(e) {
+                this.showSuccessSnackbar = true
+            },
+            onError(e) {
+                this.showErrorSnackbar = true
+                
+            }            
         }
     }
 </script>

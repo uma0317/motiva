@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Vuex from 'vuex'
+import VueClipboard from 'vue-clipboard2'
 import store from '@/store/index'
 import VueMaterial from 'vue-material'
 import { MdButton, MdContent, MdTabs } from 'vue-material/dist/components'
@@ -15,6 +16,7 @@ Vue.config.productionTip = false
 Vue.use(Vuex)
 Vue.use(VueMaterial)
 Vue.use(MdButton)
+Vue.use(VueClipboard)
 
 new Vue({
   el: '#app',
